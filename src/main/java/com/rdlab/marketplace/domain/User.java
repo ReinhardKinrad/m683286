@@ -41,6 +41,9 @@ public class User {
   @Column(name = "lastname", length = 35)
   private String lastname;
 
+  @Column(name = "role", length = 15)
+  private Role role;
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
