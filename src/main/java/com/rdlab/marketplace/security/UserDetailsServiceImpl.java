@@ -2,6 +2,7 @@ package com.rdlab.marketplace.security;
 
 import com.rdlab.marketplace.domain.User;
 import com.rdlab.marketplace.service.UserService;
+import javax.transaction.Transactional;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -16,6 +17,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     this.userService = userService;
   }
 
+  @Transactional
   @Override
   public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
     User user = userService.findByUsername(username);

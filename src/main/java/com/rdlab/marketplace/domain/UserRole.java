@@ -1,6 +1,6 @@
 package com.rdlab.marketplace.domain;
 
-import java.util.Objects;
+import java.util.LinkedHashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,19 +11,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import lombok.Data;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.hibernate.Hibernate;
 import org.springframework.security.core.GrantedAuthority;
 
 @Entity
-@Getter
-@Setter
-@ToString
-@RequiredArgsConstructor
 @Table(name = "user_roles")
 public class UserRole implements GrantedAuthority {
 
@@ -38,25 +28,32 @@ public class UserRole implements GrantedAuthority {
   @ManyToMany(mappedBy = "userRoles")
   private Set<User> users;
 
+  public Set<User> getUsers() {
+    return users;
+  }
+
+  public void setUsers(Set<User> users) {
+    this.users = users;
+  }
+
+  public String getRoleTitle() {
+    return roleTitle;
+  }
+
+  public void setRoleTitle(String roleTitle) {
+    this.roleTitle = roleTitle;
+  }
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
+
   @Override
   public String getAuthority() {
     return getRoleTitle();
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) {
-      return false;
-    }
-    UserRole userRole = (UserRole) o;
-    return id != null && Objects.equals(id, userRole.id);
-  }
-
-  @Override
-  public int hashCode() {
-    return getClass().hashCode();
   }
 }
