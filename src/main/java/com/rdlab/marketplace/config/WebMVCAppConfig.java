@@ -13,7 +13,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.rdlab.marketplace")
+@ComponentScan("com.rdlab.marketplace")
 public class WebMVCAppConfig implements WebMvcConfigurer {
 
   @Bean

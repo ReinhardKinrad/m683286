@@ -48,9 +48,6 @@ public class User {
   @Column(name = "lastname", length = 35)
   private String lastname;
 
-  @Column(name = "role", length = 15)
-  private String role;
-
   @ManyToMany(fetch = FetchType.EAGER)
   @JoinColumn(name = "role_id")
   @Exclude

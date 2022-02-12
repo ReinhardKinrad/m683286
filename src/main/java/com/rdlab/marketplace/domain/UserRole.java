@@ -1,11 +1,15 @@
 package com.rdlab.marketplace.domain;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import lombok.Data;
 import lombok.Getter;
@@ -30,6 +34,9 @@ public class UserRole implements GrantedAuthority {
 
   @Column(name = "role_title", nullable = false, length = 15)
   private String roleTitle;
+
+  @ManyToMany(mappedBy = "userRoles")
+  private Set<User> users;
 
   @Override
   public String getAuthority() {

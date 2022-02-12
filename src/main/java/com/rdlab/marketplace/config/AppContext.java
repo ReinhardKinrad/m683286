@@ -3,6 +3,7 @@ package com.rdlab.marketplace.config;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
@@ -17,12 +18,13 @@ import java.util.Properties;
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-public class HibernateConfig implements WebMvcConfigurer {
+@ComponentScan(basePackages = "com.rdlab.marketplace")
+public class AppContext implements WebMvcConfigurer {
 
   private final Environment environment;
 
   @Autowired
-  public HibernateConfig(Environment environment) {
+  public AppContext(Environment environment) {
     this.environment = environment;
   }
 

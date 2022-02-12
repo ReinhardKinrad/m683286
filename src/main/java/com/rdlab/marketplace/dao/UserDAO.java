@@ -1,17 +1,14 @@
 package com.rdlab.marketplace.dao;
 
 import com.rdlab.marketplace.domain.User;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import javax.persistence.Query;
-import javax.transaction.Transactional;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.stereotype.Component;
+import org.hibernate.criterion.Restrictions;
+import org.springframework.stereotype.Repository;
 
-@Component
+@Repository
 public class UserDAO {
 
 
@@ -27,7 +24,13 @@ public class UserDAO {
   }
 
   public User findByUsername(String username) {
-    return sessionFactory.getCurrentSession().get(User.class, username);
+    Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
+    criteria.add(Restrictions.eq("username", username));
+    return (User) criteria.uniqueResult();
+  }
+
+  public void saveUser() {
+
   }
 
   public List<User> getUsers() {

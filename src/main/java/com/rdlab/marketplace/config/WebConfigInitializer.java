@@ -9,7 +9,7 @@ public class WebConfigInitializer extends
 
   @Override
   protected Class<?>[] getRootConfigClasses() {
-    return new Class[] { HibernateConfig.class, WebSecurityConfig.class};
+    return new Class[] {AppContext.class, WebSecurityConfig.class };
   }
 
   @Override
