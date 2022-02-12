@@ -1,6 +1,5 @@
 package com.rdlab.marketplace.config;
 
-import com.rdlab.marketplace.domain.Role;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -39,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         User.builder()
             .username("user")
             .password(passwordEncoder().encode("user"))
-            .roles(Role.USER.name())
+            .roles("USER")
             .build()
     );
   }

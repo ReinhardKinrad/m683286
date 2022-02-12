@@ -26,6 +26,10 @@ public class UserDAO {
     return currentSession.get(User.class, id);
   }
 
+  public User findByUsername(String username) {
+    return sessionFactory.getCurrentSession().get(User.class, username);
+  }
+
   public List<User> getUsers() {
     List<User> list;
     Session session = sessionFactory.getCurrentSession();

@@ -1,16 +1,23 @@
 package com.rdlab.marketplace.domain;
 
 import java.util.Objects;
+import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.ToString.Exclude;
 import org.hibernate.Hibernate;
 
 @Entity
@@ -42,7 +49,12 @@ public class User {
   private String lastname;
 
   @Column(name = "role", length = 15)
-  private Role role;
+  private String role;
+
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinColumn(name = "role_id")
+  @Exclude
+  private Set<UserRole> userRoles;
 
   @Override
   public boolean equals(Object o) {

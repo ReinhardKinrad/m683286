@@ -17,6 +17,11 @@ public class UserService {
   }
 
   @Transactional
+  public User findByUsername(String username) {
+    return userDAO.findByUsername(username);
+  }
+
+  @Transactional
   public User getUser(int id) {
     return userDAO.findByID(id);
   }

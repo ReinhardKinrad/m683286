@@ -1,6 +1,5 @@
 package com.rdlab.marketplace.controller;
 
-import com.rdlab.marketplace.domain.Role;
 import com.rdlab.marketplace.service.LotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
