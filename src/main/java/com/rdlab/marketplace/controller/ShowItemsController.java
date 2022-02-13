@@ -1,8 +1,10 @@
 package com.rdlab.marketplace.controller;
 
 import com.rdlab.marketplace.service.LotService;
-import com.rdlab.marketplace.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +23,18 @@ public class ShowItemsController {
   @GetMapping("/show-items")
   public String showItems(Model model) {
 
-    //var lots = lotService.getLotByUserIDFromDAO(6);
     var lots = lotService.getAllLotsFromDAO();
 
     model.addAttribute("lotList", lots);
 
+    return "show";
+  }
+
+  @GetMapping("/show-items/my-items")
+  public String getLotByUser(Model model) {
+    var authentication = SecurityContextHolder.getContext().getAuthentication();
+    var user = (User) authentication.getPrincipal();
+    model.addAttribute("lotList", lotService.getLotByUserIDFromDAO(user.getUsername()));
     return "show";
   }
 

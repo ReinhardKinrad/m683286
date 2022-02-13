@@ -15,6 +15,7 @@
     <title>Title</title>
 </head>
 <body>
+<a href="/show-items/my-items">show my items</a>
 <table class="lot-list">
     <tr class="all-col">
         <th class="id-col">ID</th>

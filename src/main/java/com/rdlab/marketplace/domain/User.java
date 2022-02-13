@@ -5,6 +5,7 @@ import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -23,7 +24,6 @@ import org.hibernate.Hibernate;
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 @Table(name = "users")
 public class User {
@@ -48,11 +48,10 @@ public class User {
   @Column(name = "lastname", length = 35)
   private String lastname;
 
-  @ManyToMany
+  @ManyToMany(fetch = FetchType.EAGER)
   @JoinTable(name = "users_user_roles",
       joinColumns = @JoinColumn(name = "users_user_id"),
       inverseJoinColumns = @JoinColumn(name = "userroles_role_id"))
-  @Exclude
   private Set<UserRole> userRoles;
 
   public Set<UserRole> getUserRoles() {

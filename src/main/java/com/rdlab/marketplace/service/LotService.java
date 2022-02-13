@@ -22,8 +22,8 @@ public class LotService {
   }
 
   @Transactional
-  public List<Lot> getLotByUserIDFromDAO(int id) {
-    return lotDAO.getLots().stream().filter((lot) -> lot.getUser().getId() == id)
+  public List<Lot> getLotByUserIDFromDAO(String username) {
+    return lotDAO.getLots().stream().filter((lot) -> lot.getUser().getUsername().equals(username))
         .collect(Collectors.toList());
   }
 

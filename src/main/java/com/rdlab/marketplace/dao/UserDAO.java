@@ -29,14 +29,13 @@ public class UserDAO {
     return (User) criteria.uniqueResult();
   }
 
-  public void saveUser() {
-
+  public void saveUser(User user) {
+    sessionFactory.getCurrentSession().save(user);
   }
 
   public List<User> getUsers() {
-    List<User> list;
-    Session session = sessionFactory.getCurrentSession();
-    return null;
+    return (List<User>) sessionFactory.getCurrentSession().createQuery("from User order by id")
+        .list();
 
   }
 

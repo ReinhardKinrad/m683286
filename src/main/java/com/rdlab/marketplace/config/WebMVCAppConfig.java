@@ -4,6 +4,8 @@ package com.rdlab.marketplace.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -34,5 +36,10 @@ public class WebMVCAppConfig implements WebMvcConfigurer {
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
     registry.addResourceHandler("/resources/**")
         .addResourceLocations("/resources/");
+  }
+
+  @Bean("passwordEncoder")
+  protected PasswordEncoder passwordEncoder() {
+    return new BCryptPasswordEncoder(12);
   }
 }
