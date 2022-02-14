@@ -2,6 +2,7 @@ package com.rdlab.marketplace.service;
 
 import com.rdlab.marketplace.dao.LotDAO;
 import com.rdlab.marketplace.domain.Lot;
+import com.rdlab.marketplace.domain.User;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
@@ -30,5 +31,10 @@ public class LotService {
   @Transactional
   public List<Lot> getAllLotsFromDAO() {
     return lotDAO.getLots();
+  }
+
+  @Transactional
+  public void saveNewLot(Lot lot) {
+    lotDAO.saveLot(lot);
   }
 }

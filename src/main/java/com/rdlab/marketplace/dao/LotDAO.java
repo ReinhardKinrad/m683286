@@ -29,4 +29,8 @@ public class LotDAO {
     return (List<Lot>) sessionFactory.getCurrentSession().createQuery("from Lot order by id")
         .list();
   }
+
+  public void saveLot(Lot lot) {
+    sessionFactory.getCurrentSession().save(lot);
+  }
 }

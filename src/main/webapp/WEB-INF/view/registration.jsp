@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: all
@@ -9,17 +10,34 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Registration</title>
+    <link rel="stylesheet" href="../../resources/css/registration.css">
 </head>
 <body>
-
+<security:authorize access="!isAuthenticated()">
+    ${confirmPassNotEquals}
+    <br>
     <c:form method="post" action="/registration">
-        <div><label>Username: <input type="text" name="username"/></label></div>
-        <div><label>Password: <input type="password" name="password"/></label></div>
-        <div><label>Email: <input type="email" name="email"/></label></div>
-        <div><label>Firstname: <input type="text" name="firstname"/></label></div>
-        <div><label>Lastname: <input type="text" name="lastname"/></label></div>
-        <div><input type="submit" value="Submit"/></div>
+        <label><b>Username</b><input type="text" placeholder="Enter Username" name="username" required></label>
+
+        <label><b>Email</b><input type="email" placeholder="Enter Email" name="email" required></label>
+
+        <label><b>Password</b><input type="password" placeholder="Enter Password" name="password" required></label>
+
+        <label><b>Confirm Password</b><input type="password" placeholder="Confirm Password" name="confirmPassword" required></label>
+
+        <label><b>Firstname</b><input type="text" placeholder="Enter Firstname" name="firstname" required></label>
+
+        <label><b>Lastname</b><input type="text" placeholder="Enter Lastname" name="lastname" required></label>
+
+        <button type="submit">Registration</button>
+        <ul>Already registered? <a href="/login">login</a></ul>
     </c:form>
+</security:authorize>
+<security:authorize access="isAuthenticated()">
+    You are already registered.
+</security:authorize>
+
+
 </body>
 </html>

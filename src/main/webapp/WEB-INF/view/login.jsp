@@ -1,21 +1,29 @@
-<%@ taglib prefix="c" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
+
+<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html>
 <head>
-    <title>Spring Security Example </title>
+    <title>Login</title>
+    <link rel="stylesheet" href="../../resources/css/loginstyles.css">
 </head>
 <body>
-<div class="logwindow">
-    <table>
-        <c:form action="/login" method="post">
-            <div><label>Username: <input type="text" name="username"/></label></div>
-            <div><label>Password: <input type="password" name="password"/></label></div>
-            <div><input type="submit" value="Submit"/></div>
-        </c:form>
-        <a href="/registration">not reg?</a>
-    </table>
-
-</div>
+<security:authorize access="!isAuthenticated()">
+    <div class="parent">
+        <f:form action="/login" method="post">
+            <label><b>Username</b> <input type="text" placeholder="Enter Username" name="username" required></label>
+            <label><b>Password</b><input type="password" placeholder="Enter Password" name="password" required></label>
+            <button type="submit">Login</button>
+            <ul>Not registred? <a href="/registration">reg</a></ul>
+            <ul><a href="/show-items">log in as a guest</a></ul>
+        </f:form>
+    </div>
+</security:authorize>
+<security:authorize access="isAuthenticated()">
+    You are already logged in.
+</security:authorize>
 
 </body>
 </html>

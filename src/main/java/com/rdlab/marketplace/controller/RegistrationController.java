@@ -26,6 +26,11 @@ public class RegistrationController {
   @PostMapping("/registration")
   public String createUser(@ModelAttribute("userForm") User userForm, Model model) {
 
+    if (!userForm.getPassword().equals(userForm.getConfirmPassword())) {
+      model.addAttribute("confirmPassNotEquals", "Confirm password not equals with password");
+      return "registration";
+    }
+
     if (!userService.saveUser(userForm)) {
       model.addAttribute("userError", "not valid");
       return "registration";

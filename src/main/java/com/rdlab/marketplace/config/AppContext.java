@@ -11,6 +11,7 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import java.util.Properties;
 
@@ -53,7 +54,10 @@ public class AppContext implements WebMvcConfigurer {
     properties.put("hibernate.dialect", environment.getRequiredProperty("hibernate.dialect"));
     properties.put("hibernate.show_sql", environment.getRequiredProperty("hibernate.show_sql"));
     properties.put("hibernate.format_sql", environment.getRequiredProperty("hibernate.format_sql"));
-    properties.put("hibernate.hbm2ddl.auto", environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
+    properties.put("hibernate.hbm2ddl.auto",
+        environment.getRequiredProperty("hibernate.hbm2ddl.auto"));
+    properties.put("hibernate.connection.characterEncoding", environment.getRequiredProperty(
+        "hibernate.connection.characterEncoding"));
     return properties;
   }
 
@@ -62,5 +66,13 @@ public class AppContext implements WebMvcConfigurer {
     HibernateTransactionManager transactionManager = new HibernateTransactionManager();
     transactionManager.setSessionFactory(sessionFactory().getObject());
     return transactionManager;
+  }
+
+  @Bean
+  public CharacterEncodingFilter encodingFilter() {
+    CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+    characterEncodingFilter.setEncoding("UTF-8");
+    characterEncodingFilter.setForceEncoding(true);
+    return characterEncodingFilter;
   }
 }

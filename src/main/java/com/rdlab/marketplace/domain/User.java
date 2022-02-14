@@ -1,6 +1,5 @@
 package com.rdlab.marketplace.domain;
 
-import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 import javax.persistence.Column;
@@ -13,12 +12,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import lombok.Data;
+import javax.persistence.Transient;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
-import lombok.ToString.Exclude;
 import org.hibernate.Hibernate;
 
 @Entity
@@ -41,6 +38,9 @@ public class User {
 
   @Column(name = "password", nullable = false, length = 100)
   private String password;
+
+  @Transient
+  private String confirmPassword;
 
   @Column(name = "firstname", length = 25)
   private String firstname;

@@ -15,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.Hibernate;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
 
 @Entity
 @Getter
@@ -32,6 +34,7 @@ public class Lot {
   @Column(name = "start_price")
   private Double startPrice;
 
+  @DateTimeFormat(iso= ISO.DATE)
   @Column(name = "stop_date", nullable = false)
   private LocalDate stopDate;
 

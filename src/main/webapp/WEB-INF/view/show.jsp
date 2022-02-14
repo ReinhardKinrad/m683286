@@ -1,7 +1,7 @@
-<%@ page import="com.rdlab.marketplace.domain.Lot" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: all
@@ -15,7 +15,22 @@
     <title>Title</title>
 </head>
 <body>
-<a href="/show-items/my-items">show my items</a>
+<security:authorize access="isAnonymous()">
+
+</security:authorize>
+<div class="topnav">
+    <a class="active" href="/show-items">Home</a>
+    <security:authorize access="hasRole('ROLE_USER')">
+        <a href="/show-items/my-items">${currentUser}</a>
+        <a href="/sell/new">Sell</a>
+        <a href="/logout">Logout</a>
+    </security:authorize>
+    <security:authorize access="!isAuthenticated()">
+        <a href="/login">Login</a>
+    </security:authorize>
+
+</div>
+
 <table class="lot-list">
     <tr class="all-col">
         <th class="id-col">ID</th>
