@@ -1,42 +1,9 @@
 package com.rdlab.marketplace.dao;
 
 import com.rdlab.marketplace.domain.User;
-import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.criterion.Restrictions;
-import org.springframework.stereotype.Repository;
 
-@Repository
-public class UserDAO {
+public interface UserDAO extends GenericDao<User> {
 
-
-  private final SessionFactory sessionFactory;
-
-  public UserDAO(SessionFactory sessionFactory) {
-    this.sessionFactory = sessionFactory;
-  }
-
-  public User findByID(int id) {
-    Session currentSession = sessionFactory.getCurrentSession();
-    return currentSession.get(User.class, id);
-  }
-
-  public User findByUsername(String username) {
-    Criteria criteria = sessionFactory.getCurrentSession().createCriteria(User.class);
-    criteria.add(Restrictions.eq("username", username));
-    return (User) criteria.uniqueResult();
-  }
-
-  public void saveUser(User user) {
-    sessionFactory.getCurrentSession().save(user);
-  }
-
-  public List<User> getUsers() {
-    return (List<User>) sessionFactory.getCurrentSession().createQuery("from User order by id")
-        .list();
-
-  }
+  User findByUsername(String username);
 
 }

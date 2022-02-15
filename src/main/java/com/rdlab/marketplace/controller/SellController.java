@@ -1,12 +1,8 @@
 package com.rdlab.marketplace.controller;
 
-import com.rdlab.marketplace.dao.ItemDAO;
 import com.rdlab.marketplace.domain.Item;
 import com.rdlab.marketplace.domain.Lot;
-import com.rdlab.marketplace.service.ItemService;
-import com.rdlab.marketplace.service.LotService;
 import com.rdlab.marketplace.service.SellService;
-import com.rdlab.marketplace.service.UserService;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

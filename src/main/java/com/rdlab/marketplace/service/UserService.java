@@ -13,39 +13,40 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-  private final UserDAO userDAO;
+  private final UserDAO userDao;
   private final PasswordEncoder passwordEncoder;
 
-  public UserService(UserDAO userDAO,
-      @Qualifier("passwordEncoder") PasswordEncoder passwordEncoder) {
-    this.userDAO = userDAO;
+  public UserService(UserDAO userDao,
+      @Qualifier("passwordEncoder") PasswordEncoder passwordEncoder
+  ) {
     this.passwordEncoder = passwordEncoder;
+    this.userDao = userDao;
   }
 
   @Transactional
   public User findByUsername(String username) {
-    return userDAO.findByUsername(username);
+    return userDao.findByUsername(username);
   }
 
   @Transactional
   public List<User> getAllUsers() {
-    return userDAO.getUsers();
+    return userDao.findAll();
   }
 
   @Transactional
   public User getUser(int id) {
-    return userDAO.findByID(id);
+    return userDao.findById(id);
   }
 
   @Transactional
   public boolean saveUser(User user) {
-    User userFromDB = userDAO.findByUsername(user.getUsername());
+    User userFromDB = userDao.findByUsername(user.getUsername());
     if (userFromDB != null) {
       return false;
     }
     user.setUserRoles(Collections.singleton(new UserRole(2, "ROLE_USER")));
     user.setPassword(passwordEncoder.encode(user.getPassword()));
-    userDAO.saveUser(user);
+    userDao.save(user);
     return true;
   }
 }
