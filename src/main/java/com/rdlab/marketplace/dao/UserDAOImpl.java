@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class UserDAOImpl extends GenericDaoImpl<User> implements UserDAO {
 
+
   @Override
   public User findByUsername(String username) {
     return (User) getSessionFactory().createQuery("from User where username=:username")
