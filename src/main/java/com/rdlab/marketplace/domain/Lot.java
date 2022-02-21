@@ -53,6 +53,8 @@ public class Lot {
   @JoinColumn(name = "item_id", nullable = false)
   private Item item;
 
+  private Boolean isActive;
+
 
   @Override
   public boolean equals(Object o) {

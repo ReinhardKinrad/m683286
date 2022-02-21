@@ -44,7 +44,9 @@ public class LotService {
 
   @Transactional
   public List<Lot> getAllLotsFromDAO() {
-    return genericDao.findAll();
+    return genericDao.findAll().stream()
+        .filter(Lot::getIsActive)
+        .collect(Collectors.toList());
   }
 
   @Transactional

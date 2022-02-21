@@ -7,7 +7,8 @@
   Time: 20:01
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java"
+         isELIgnored="false"%>
 <html>
 <head>
     <title>Registration</title>
@@ -17,10 +18,12 @@
 <security:authorize access="!isAuthenticated()">
     ${confirmPassNotEquals}
     <br>
-    <c:form method="post" action="/registration">
+    <c:form method="post" modelAttribute="userForm" action="/registration">
         <label><b>Username</b><input type="text" placeholder="Enter Username" name="username" required></label>
+        <c:errors path="username"/>
 
-        <label><b>Email</b><input type="email" placeholder="Enter Email" name="email" required></label>
+        <label><b>Email</b><input type="text" placeholder="Enter Email" name="email" required></label>
+        <c:errors path="email"/>
 
         <label><b>Password</b><input type="password" placeholder="Enter Password" name="password" required></label>
 

@@ -5,6 +5,7 @@ import javax.servlet.FilterRegistration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -45,6 +46,15 @@ public class WebMVCAppConfig implements WebMvcConfigurer {
   @Bean("passwordEncoder")
   protected PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder(12);
+  }
+
+  @Bean(name = "messageSource")
+  public ReloadableResourceBundleMessageSource messageSource() {
+    ReloadableResourceBundleMessageSource resource = new ReloadableResourceBundleMessageSource();
+    resource.setBasename("classpath:/messages");
+    resource.setCacheSeconds(1);
+    resource.setDefaultEncoding("UTF-8");
+    return resource;
   }
 
 }

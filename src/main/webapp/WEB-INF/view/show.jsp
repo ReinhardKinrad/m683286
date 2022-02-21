@@ -28,9 +28,9 @@
             </div>
         </security:authorize>
         <security:authorize access="!isAuthenticated()">
-        <div class="topnav-right">
-            <a href="/login">Login</a>
-        </div>
+            <div class="topnav-right">
+                <a href="/login">Login</a>
+            </div>
         </security:authorize>
 
     </div>
@@ -46,7 +46,10 @@
                 <th>Stop date</th>
                 <th>Bid Inc</th>
                 <th>Bidder</th>
-                <th>Bidding</th>
+                <security:authorize access="isAuthenticated()">
+                    <th>Bidding</th>
+                </security:authorize>
+
             </tr>
 
             <c:forEach items="${lotList}" var="lot">
@@ -59,11 +62,19 @@
                     <td>${lot.stopDate}</td>
                     <td>${lot.bidInc}</td>
                     <td>${lot.bid.username}</td>
-                    <td>
-                        <input type="text">
-                        <button type="submit">Submit</button>
-                        </form>
-                    </td>
+
+                    <security:authorize access="isAuthenticated()">
+                        <td>
+                            <f:form method="post">
+                                <label>
+                                    <input type="text" name="bid" >
+                                </label>
+                                <button type="submit">Submit</button>
+                            </f:form>
+                        </td>
+                    </security:authorize>
+
+
                 </tr>
             </c:forEach>
 
