@@ -21,6 +21,7 @@
         <a class="active" href="/show-items">Home</a>
         <security:authorize access="hasRole('ROLE_USER')">
             <a href="/show-items/my-items">Show my items</a>
+            <a href="/show-items/my-bids">Show my bids</a>
             <a href="/sell/new">Sell</a>
             <div class="topnav-right">
                 <a>${currentUser}</a>
@@ -62,19 +63,25 @@
                     <td>${lot.stopDate}</td>
                     <td>${lot.bidInc}</td>
                     <td>${lot.bid.username}</td>
-
                     <security:authorize access="isAuthenticated()">
-                        <td>
-                            <f:form method="post">
-                                <label>
-                                    <input type="text" name="bid" >
-                                </label>
-                                <button type="submit">Submit</button>
-                            </f:form>
-                        </td>
+                        <c:choose>
+                            <c:when test="${lot.user.username != currentUser}">
+                                <td>
+                                    <f:form method="post" action="/show-items/${lot.id}">
+                                        <label>
+                                            <input type="text" name="price">
+                                        </label>
+                                        <button type="submit">Submit</button>
+                                    </f:form>
+                                </td>
+                            </c:when>
+                            <c:otherwise>
+                                <td>
+                                    It's your lot!
+                                </td>
+                            </c:otherwise>
+                        </c:choose>
                     </security:authorize>
-
-
                 </tr>
             </c:forEach>
 

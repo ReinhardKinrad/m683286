@@ -2,10 +2,14 @@ package com.rdlab.marketplace.service;
 
 import com.rdlab.marketplace.dao.GenericDao;
 import com.rdlab.marketplace.domain.Lot;
+import com.rdlab.marketplace.domain.User;
+import com.sun.istack.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
+import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -24,10 +28,18 @@ public class LotService {
   }
 
   @Transactional
-  public List<Lot> getLotByUserIDFromDAO(String username) {
+  public List<Lot> getLotByUsernameFromDAO(String username) {
     return genericDao.findAll().stream()
         .filter((lot) -> lot.getUser().getUsername().equals(username))
         .collect(Collectors.toList());
+  }
+
+  @Transactional
+  public List<Lot> getLotByBidUsernameFromDAO(String username) {
+    return genericDao.findAll().stream()
+        .filter(lot -> lot.getBid() != null && lot.getBid().getUsername().equals(username))
+        .collect(
+            Collectors.toList());
   }
 
   @Transactional
@@ -47,6 +59,17 @@ public class LotService {
     return genericDao.findAll().stream()
         .filter(Lot::getIsActive)
         .collect(Collectors.toList());
+  }
+
+  @Transactional
+  public boolean addBidder(User user, int id, double price) {
+    Lot lot = genericDao.findById(id);
+    if (price <= lot.getStartPrice() || price <= lot.getBidInc()) {
+      return false;
+    }
+    lot.setBid(user);
+    lot.setBidInc(price);
+    return true;
   }
 
   @Transactional
