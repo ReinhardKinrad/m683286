@@ -3,6 +3,7 @@ package com.rdlab.marketplace.controller;
 import com.rdlab.marketplace.domain.Item;
 import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.service.SellService;
+import com.rdlab.marketplace.util.SecurityUtil;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,11 +22,16 @@ public class SellController {
     this.sellService = sellService;
   }
 
+  @ModelAttribute
+  private void addUserToModelFromSecurityContext(Model model) {
+    model.addAttribute("currentUser", SecurityUtil.getUserFromSecurityContext());
+  }
+
   @GetMapping("/new")
   public String selling(Model model) {
     model.addAttribute("itemForm", new Item());
     model.addAttribute("lotForm", new Lot());
-    return "sell/new";
+    return "new";
   }
 
   @PostMapping("/new")

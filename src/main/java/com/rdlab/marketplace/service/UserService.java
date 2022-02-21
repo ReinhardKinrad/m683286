@@ -21,6 +21,7 @@ public class UserService {
   ) {
     this.passwordEncoder = passwordEncoder;
     this.userDao = userDao;
+    userDao.setDaoType(User.class);
   }
 
   @Transactional

@@ -6,6 +6,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+@SuppressWarnings("unchecked")
 @Repository
 public abstract class GenericDaoImpl<T> {
 

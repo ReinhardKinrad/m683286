@@ -27,10 +27,10 @@ public class Item {
   @Column(name = "item_id", nullable = false)
   private Integer id;
 
-  @Column(name = "title", length = 30)
+  @Column(name = "title", length = 60)
   private String title;
 
-  @Column(name = "description", length = 80)
+  @Column(name = "description", length = 300)
   private String description;
 
   @Override
