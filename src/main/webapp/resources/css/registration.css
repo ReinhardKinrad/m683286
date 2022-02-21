@@ -77,3 +77,7 @@ button[type=submit]:hover {
 ul {
   padding: 5px 5px;
 }
+
+span.error {
+  color: black;
+}
