@@ -1,9 +1,10 @@
 package com.rdlab.marketplace.controller;
 
-import com.rdlab.marketplace.domain.User;
+import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.service.LotService;
 import com.rdlab.marketplace.service.UserService;
 import com.rdlab.marketplace.util.SecurityUtil;
+import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -42,7 +43,7 @@ public class ShowItemsController {
   @PostMapping("/show-items/{id}")
   public String addBid(@RequestParam(name = "price") double price, Model model,
       @PathVariable int id) {
-    User user = userService.findByUsername((Objects.requireNonNull(
+    var user = userService.findByUsername((Objects.requireNonNull(
         model.getAttribute("currentUser"))).toString());
     if (lotService.addBidder(user, id, price)) {
       model.addAttribute("bid", "OK");
@@ -61,6 +62,10 @@ public class ShowItemsController {
 
   @GetMapping("/show-items/my-items")
   public String getLotByUser(Model model) {
+    List<Lot> list = lotService.getLotByUsernameFromDAO("Orlando");
+    for (Lot lot : list) {
+      System.out.println(lot.getId());
+    }
     model.addAttribute("lotList",
         lotService.getLotByUsernameFromDAO(
             Objects.requireNonNull(model.getAttribute("currentUser")).toString()));

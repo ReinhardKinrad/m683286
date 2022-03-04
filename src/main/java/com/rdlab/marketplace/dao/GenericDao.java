@@ -3,7 +3,7 @@ package com.rdlab.marketplace.dao;
 import java.util.List;
 
 public interface GenericDao<T> {
-  void setDaoType(Class< T > daoType);
+  void setDomainType(Class< T > domainType);
   T findById(int id);
   List<T> findAll();
   void save(T entity);

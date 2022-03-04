@@ -8,7 +8,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java"
-         isELIgnored="false"%>
+         isELIgnored="false" %>
 <html>
 <head>
     <title>Registration</title>
@@ -19,22 +19,30 @@
 
     <br>
     <c:form method="post" modelAttribute="userForm" action="/registration">
-        <label><b>Username</b><input type="text" placeholder="Enter Username" name="username" required></label>
-        <c:errors path="username" cssClass="error"/>
+        <label><b>Username</b><input id="username" type="text" placeholder="Enter Username"
+                                     name="username"
+                                     required minlength="5" max="30">
+            <span class="error" aria-live="polite"></span></label>
 
-        <label><b>Email</b><input type="text" placeholder="Enter Email" name="email" required></label>
+
+        <label><b>Email</b><input id="email" type="email" placeholder="Enter Email" name="email"
+                                  required minlength="8"></label>
         <c:errors path="email" cssClass="error"/>
 
-        <label><b>Password</b><input type="password" placeholder="Enter Password" name="password" required></label>
+        <label><b>Password</b><input type="password" placeholder="Enter Password" name="password"
+                                     required></label>
         <c:errors path="password" cssClass="error"/>
 
-        <label><b>Confirm Password</b><input type="password" placeholder="Confirm Password" name="confirmPassword" required></label>
+        <label><b>Confirm Password</b><input type="password" placeholder="Confirm Password"
+                                             name="confirmPassword" required></label>
         ${confirmPassNotEquals}
 
-        <label><b>Firstname</b><input type="text" placeholder="Enter Firstname" name="firstname" required></label>
+        <label><b>Firstname</b><input type="text" placeholder="Enter Firstname" name="firstname"
+                                      required></label>
         <c:errors path="firstname" cssClass="error"/>
 
-        <label><b>Lastname</b><input type="text" placeholder="Enter Lastname" name="lastname" required></label>
+        <label><b>Lastname</b><input type="text" placeholder="Enter Lastname" name="lastname"
+                                     required></label>
         <c:errors path="lastname" cssClass="error"/>
 
         <button type="submit">Registration</button>
@@ -47,4 +55,6 @@
 
 
 </body>
+<script src="/resources/js/reg.js">
+</script>
 </html>

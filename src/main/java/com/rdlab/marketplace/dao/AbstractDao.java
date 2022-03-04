@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @SuppressWarnings("unchecked")
 @Repository
-public abstract class GenericDaoImpl<T> {
+public abstract class AbstractDao<T> {
 
   private Class<T> daoType;
 
@@ -16,9 +16,9 @@ public abstract class GenericDaoImpl<T> {
   protected SessionFactory sessionFactory;
 
 
-  public void setDaoType(Class<T> daoType) {
-    if (daoType != null) {
-      this.daoType = daoType;
+  public void setDomainType(Class<T> domainType) {
+    if (domainType != null) {
+      this.daoType = domainType;
     }
   }
 

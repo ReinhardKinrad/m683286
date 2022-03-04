@@ -13,7 +13,7 @@ public class ItemService {
   public ItemService(GenericDao<Item> itemDAO)
   {
     this.itemDAO = itemDAO;
-    itemDAO.setDaoType(Item.class);
+    itemDAO.setDomainType(Item.class);
   }
 
   @Transactional

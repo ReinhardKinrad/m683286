@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import lombok.Data;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -54,7 +55,6 @@ public class Lot {
   private Item item;
 
   private Boolean isActive;
-
 
   @Override
   public boolean equals(Object o) {

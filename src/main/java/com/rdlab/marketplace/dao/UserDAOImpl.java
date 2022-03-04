@@ -4,7 +4,7 @@ import com.rdlab.marketplace.domain.User;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class UserDAOImpl extends GenericDaoImpl<User> implements UserDAO {
+public class UserDAOImpl extends AbstractDao<User> implements UserDAO {
 
 
   @Override

@@ -5,7 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @Scope("prototype")
-public class DaoImpl<T> extends GenericDaoImpl<T> implements GenericDao<T> {
+public class DaoImpl<T> extends AbstractDao<T> implements GenericDao<T> {
 
 
 }

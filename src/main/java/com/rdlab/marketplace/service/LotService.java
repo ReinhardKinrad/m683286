@@ -1,6 +1,6 @@
 package com.rdlab.marketplace.service;
 
-import com.rdlab.marketplace.dao.GenericDao;
+import com.rdlab.marketplace.dao.LotDAO;
 import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.domain.User;
 import java.util.List;
@@ -12,55 +12,46 @@ import org.springframework.stereotype.Service;
 @Service
 public class LotService {
 
-  private final GenericDao<Lot> genericDao;
+  private final LotDAO lotDAO;
 
-  public LotService(GenericDao<Lot> genericDao) {
-    this.genericDao = genericDao;
-    genericDao.setDaoType(Lot.class);
+  public LotService(LotDAO lotDAO) {
+    this.lotDAO = lotDAO;
   }
 
   @Transactional
   public Lot getLotFromDAO(int id) {
-    return genericDao.findById(id);
+    return lotDAO.findById(id);
   }
 
   @Transactional
   public List<Lot> getLotByUsernameFromDAO(String username) {
-    return genericDao.findAll().stream()
-        .filter((lot) -> lot.getUser().getUsername().equals(username))
-        .collect(Collectors.toList());
+    return lotDAO.findLotByUsername(username);
   }
 
   @Transactional
-  public List<Lot> getLotByBidUsernameFromDAO(String username) {
-    return genericDao.findAll().stream()
-        .filter(lot -> lot.getBid() != null && lot.getBid().getUsername().equals(username))
-        .collect(
-            Collectors.toList());
+  public List<Lot> getLotByBidUsernameFromDAO(String bidUsername) {
+    return lotDAO.findLotByBidUsername(bidUsername);
   }
 
   @Transactional
   public List<Lot> searchLot(String search) {
-    return genericDao.findAll().stream()
-        .filter(
-            (lot ->
-                lot.getItem().getTitle().toLowerCase(Locale.ROOT)
-                    .contains(search.toLowerCase(
-                        Locale.ROOT))))
-        .collect(
-            Collectors.toList());
+    return lotDAO.findLotThatContainsParameterInTheTitleOfItem(search);
+
   }
 
   @Transactional
   public List<Lot> getAllLotsFromDAO() {
-    return genericDao.findAll().stream()
+    return lotDAO.findAll().stream()
         .filter(Lot::getIsActive)
         .collect(Collectors.toList());
   }
 
   @Transactional
   public boolean addBidder(User user, int id, double price) {
-    Lot lot = genericDao.findById(id);
+    Lot lot = lotDAO.findById(id);
+    if (user.getUsername().equals(lot.getUser().getUsername())) {
+      return false;
+    }
     if (price <= lot.getStartPrice() || price <= lot.getBidInc()) {
       return false;
     }
@@ -71,6 +62,6 @@ public class LotService {
 
   @Transactional
   public void saveNewLot(Lot lot) {
-    genericDao.save(lot);
+    lotDAO.save(lot);
   }
 }
