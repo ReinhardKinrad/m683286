@@ -1,6 +1,6 @@
 package com.rdlab.marketplace.service;
 
-import com.rdlab.marketplace.dao.UserDAO;
+import com.rdlab.marketplace.dao.UserDao;
 import com.rdlab.marketplace.domain.User;
 import com.rdlab.marketplace.domain.UserRole;
 import java.util.Collections;
@@ -13,10 +13,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 
-  private final UserDAO userDao;
+  private final UserDao userDao;
   private final PasswordEncoder passwordEncoder;
 
-  public UserService(UserDAO userDao,
+  public UserService(UserDao userDao,
       @Qualifier("passwordEncoder") PasswordEncoder passwordEncoder
   ) {
     this.passwordEncoder = passwordEncoder;

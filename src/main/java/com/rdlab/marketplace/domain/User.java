@@ -17,7 +17,6 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.hibernate.Hibernate;
-import org.hibernate.validator.constraints.Length;
 
 @Entity
 @Getter
@@ -37,7 +36,6 @@ public class User {
   @Column(name = "email", nullable = false, length = 50)
   private String email;
 
-  @Length(min = 8, max = 100, message = "not valid password")
   @Column(name = "password", nullable = false, length = 100)
   private String password;
 

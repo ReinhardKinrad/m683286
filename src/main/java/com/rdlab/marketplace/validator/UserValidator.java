@@ -44,7 +44,7 @@ public class UserValidator implements Validator {
 
   private void validateEmail(User user, Errors errors) {
     if (!(EmailValidator.getInstance().isValid(user.getEmail())
-        && (user.getEmail().length() < 8
+        || (user.getEmail().length() < 8
         || user.getEmail().length() > 50))) {
       errors.rejectValue("email", "email.not.valid");
     }

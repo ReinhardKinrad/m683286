@@ -81,8 +81,21 @@ button[type=submit] {
   cursor: pointer;
 }
 
+
 button[type=submit]:hover {
   background-color: #a07b45;
+}
+
+.error {
+  width  : 100%;
+  padding: 0;
+
+  font-size: 80%;
+  color: white;
+  background-color: #900;
+  border-radius: 0 0 5px 5px;
+
+  box-sizing: border-box;
 }
 
 ul {

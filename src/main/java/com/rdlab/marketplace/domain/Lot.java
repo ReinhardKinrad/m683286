@@ -15,6 +15,7 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import lombok.ToString.Exclude;
 import org.hibernate.Hibernate;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
@@ -52,6 +53,7 @@ public class Lot {
 
   @ManyToOne(optional = false)
   @JoinColumn(name = "item_id", nullable = false)
+  @Exclude
   private Item item;
 
   private Boolean isActive;

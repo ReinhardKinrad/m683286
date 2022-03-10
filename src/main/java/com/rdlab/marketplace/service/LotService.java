@@ -1,10 +1,9 @@
 package com.rdlab.marketplace.service;
 
-import com.rdlab.marketplace.dao.LotDAO;
+import com.rdlab.marketplace.dao.LotDao;
 import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.domain.User;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -12,9 +11,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class LotService {
 
-  private final LotDAO lotDAO;
+  private final LotDao lotDAO;
 
-  public LotService(LotDAO lotDAO) {
+  public LotService(LotDao lotDAO) {
     this.lotDAO = lotDAO;
   }
 

@@ -23,6 +23,7 @@ public class SellService {
     itemService.saveItem(itemForm);
     lotForm.setUser(userFromUserServiceByUsername);
     lotForm.setItem(itemForm);
+    lotForm.setIsActive(true);
     lotService.saveNewLot(lotForm);
   }
 }

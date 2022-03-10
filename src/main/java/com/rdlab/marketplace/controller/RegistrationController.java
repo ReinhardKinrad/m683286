@@ -3,7 +3,6 @@ package com.rdlab.marketplace.controller;
 import com.rdlab.marketplace.domain.User;
 import com.rdlab.marketplace.service.UserService;
 import com.rdlab.marketplace.validator.UserValidator;
-import jakarta.validation.Valid;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -38,7 +37,7 @@ public class RegistrationController {
   }
 
   @PostMapping("/registration")
-  public String createUser(@Valid @ModelAttribute("userForm") User userForm,
+  public String createUser(@ModelAttribute("userForm") User userForm,
       BindingResult bindingResult, Model model) {
 
     userValidator.validate(userForm, bindingResult);

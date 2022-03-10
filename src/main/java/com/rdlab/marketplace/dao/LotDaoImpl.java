@@ -3,12 +3,13 @@ package com.rdlab.marketplace.dao;
 import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.util.StringUtil;
 import java.util.List;
+import javax.management.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public class LotDAOImpl extends AbstractDao<Lot> implements LotDAO {
+public class LotDaoImpl extends AbstractDao<Lot> implements LotDao {
 
-  public LotDAOImpl() {
+  public LotDaoImpl() {
     setDomainType(Lot.class);
   }
 

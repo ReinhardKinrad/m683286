@@ -27,7 +27,11 @@ public abstract class AbstractDao<T> {
   }
 
   public List<T> findAll() {
-    return sessionFactory.getCurrentSession().createQuery("from " + daoType.getName()).list();
+    return sessionFactory.getCurrentSession()
+        .createQuery("from "
+            + daoType.getName()
+            + " ORDER BY "
+            + daoType.getName() + ".id").list();
   }
 
   public void save(T entity) {
