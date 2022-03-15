@@ -8,13 +8,16 @@ import org.springframework.stereotype.Repository;
 
 @SuppressWarnings("unchecked")
 @Repository
-public abstract class AbstractDao<T> {
+public abstract class AbstractDao<T> implements GenericDao<T> {
 
   private Class<T> daoType;
 
-  @Autowired
   protected SessionFactory sessionFactory;
 
+  @Autowired
+  public void setSessionFactory(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
   public void setDomainType(Class<T> domainType) {
     if (domainType != null) {
@@ -40,8 +43,8 @@ public abstract class AbstractDao<T> {
     }
   }
 
-  public void delete() {
-
+  public void update(int id, T entity) {
+    getSessionFactory().update(entity);
   }
 
   public Session getSessionFactory() {

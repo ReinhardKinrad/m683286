@@ -7,9 +7,9 @@ public interface GenericDao<T> {
   T findById(int id);
   List<T> findAll();
   void save(T entity);
+  void update(int id, T entity);
 
   // TODO: 15.02.2022
-//  T update(T entity);
 //  void delete(T entity);
 //  void deleteById(T entity);
 

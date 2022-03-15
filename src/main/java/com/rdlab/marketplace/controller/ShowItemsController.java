@@ -1,10 +1,8 @@
 package com.rdlab.marketplace.controller;
 
-import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.service.LotService;
 import com.rdlab.marketplace.service.UserService;
 import com.rdlab.marketplace.util.SecurityUtil;
-import java.util.List;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,12 +37,12 @@ public class ShowItemsController {
     return "show";
   }
 
-  // TODO: 21.02.2022 need to update this method and set model attribute to true value
   @PostMapping("/show-items/{id}")
   public String addBid(@RequestParam(name = "price") double price, Model model,
       @PathVariable int id) {
     var user = userService.findByUsername((Objects.requireNonNull(
         model.getAttribute("currentUser"))).toString());
+    // TODO: 15.03.2022 write error logic
     if (lotService.addBidder(user, id, price)) {
       model.addAttribute("bid", "OK");
     } else {
@@ -55,17 +53,14 @@ public class ShowItemsController {
 
   @GetMapping("/show-items/search")
   public String searchLot(Model model, @RequestParam(name = "item") String item) {
-    model.addAttribute("lotList", lotService.searchLot(item));
+    model.addAttribute("lotList",
+        lotService.getLotThatContainsParameterInTheTitleOfItem(item));
     return "show";
   }
 
 
   @GetMapping("/show-items/my-items")
   public String getLotByUser(Model model) {
-    List<Lot> list = lotService.getLotByUsernameFromDAO("Orlando");
-    for (Lot lot : list) {
-      System.out.println(lot.getId());
-    }
     model.addAttribute("lotList",
         lotService.getLotByUsernameFromDAO(
             Objects.requireNonNull(model.getAttribute("currentUser")).toString()));

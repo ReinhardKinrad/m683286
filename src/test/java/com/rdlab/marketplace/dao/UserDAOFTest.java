@@ -1,7 +1,6 @@
 package com.rdlab.marketplace.dao;
 
-import static org.junit.jupiter.api.Assertions.*;
-
+import org.hibernate.SessionFactory;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +10,11 @@ import org.junit.jupiter.api.Test;
 class UserDAOFTest {
 
 
+  private final SessionFactory sessionFactory;
+
+  UserDAOFTest(SessionFactory sessionFactory) {
+    this.sessionFactory = sessionFactory;
+  }
 
   @BeforeEach
   void setUp() {

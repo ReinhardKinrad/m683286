@@ -6,6 +6,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../../resources/css/show.css">
+    <link rel="icon" href="../../resources/ico/favicon.png">
     <title>Marketplace</title>
 </head>
 <body>
@@ -74,7 +75,7 @@
                             </c:when>
                             <c:otherwise>
                                 <td>
-                                    It's your lot!
+                                    <a href="/edit/${lot.id}">Edit</a>
                                 </td>
                             </c:otherwise>
                         </c:choose>

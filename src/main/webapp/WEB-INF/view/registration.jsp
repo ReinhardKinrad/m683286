@@ -13,6 +13,7 @@
 <head>
     <title>Registration</title>
     <link rel="stylesheet" href="../../resources/css/registration.css">
+    <link rel="icon" href="../../resources/ico/favicon.png">
 </head>
 <body>
 <security:authorize access="!isAuthenticated()">

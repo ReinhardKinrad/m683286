@@ -8,6 +8,7 @@
 <head>
     <title>Login</title>
     <link rel="stylesheet" href="../../resources/css/loginstyles.css">
+    <link rel="icon" href="../../resources/ico/favicon.png">
 </head>
 <body>
 <security:authorize access="!isAuthenticated()">

@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"
          isELIgnored="false" %>
 <%@ taglib prefix="f" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 <%--
   Created by IntelliJ IDEA.
   User: all
@@ -11,55 +12,70 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="../../resources/css/new.css">
-    <title>Title</title>
+    <link rel="icon" href="../../resources/ico/favicon.png">
+    <title>Sell</title>
 </head>
 <body>
 <div class="container">
-
-    <div class="topnav">
-
+    <div class="navbar">
         <a class="active" href="/show-items">Home</a>
-        <a href="/show-items/my-items">Show my items</a>
-
-        <div class="topnav-right">
-            <a>${currentUser}</a>
-            <a href="/logout">Logout</a>
-        </div>
-
+        <security:authorize access="hasRole('ROLE_USER')">
+            <a href="/show-items/my-items">Show my items</a>
+            <a href="/show-items/my-bids">Show my bids</a>
+            <a href="/sell/new">Sell</a>
+            <div class="navbar-right">
+                <a id="currentUser" class="user">${currentUser}</a>
+                <a href="/logout">Logout</a>
+            </div>
+        </security:authorize>
     </div>
 
-    <div class="sell-container">
+    <div class="form-container">
 
-        <f:form method="post" action="/sell/new">
+        <f:form id="lot-form" method="post" action="/sell/new" modelAttribute="lotForm">
+            <p>
+                <label>
+                    <span>Title:</span>
+                    <f:input type="text" path="item.title" />
+                    <span class="error" aria-live="polite"></span>
+                    <f:errors path="item.title" cssClass="error"/>
+                </label>
+            </p>
+            <p>
             <label>
-                <b>Title: </b>
-                <input type="text" name="title"/>
-                <f:errors path="title" cssClass="error"/>
+                <span>Description:</span>
+                <textarea form="lot-form" name="item.description" class="input-description" maxlength="300"></textarea>
+                <span class="error" aria-live="polite"></span>
+                <f:errors path="item.description" cssClass="error"/>
             </label>
+            </p>
+            <p>
             <label>
-                <b>Description:</b>
-                <input type="text" name="description"/>
-                <f:errors path="description" cssClass="error"/>
-            </label>
-            <label>
-                <b>Stop date</b>
-                <input type="text" name="stopDate"/>
+                <span>Stop date:</span>
+                <f:input type="date" path="stopDate"/>
+                <span class="error" aria-live="polite"></span>
                 <f:errors path="stopDate" cssClass="error"/>
             </label>
+            </p>
+            <p>
             <label>
-                <b>Start price</b>
-                <input type="text" name="startPrice"/>
+                <span>Start price:</span>
+                <f:input type="text" path="startPrice"/>
+                <span class="error" aria-live="polite"></span>
                 <f:errors path="startPrice" cssClass="error"/>
             </label>
+            </p>
+            <p>
             <label>
-                <b>Bid inc.</b>
-                <input type="text" name="bidInc"/>
+                <span>Bid inc:</span>
+                <f:input type="text" path="bidInc"/>
+                <span class="error" aria-live="polite"></span>
                 <f:errors path="bidInc" cssClass="error"/>
             </label>
+            </p>
             <button type="submit">Sell</button>
         </f:form>
     </div>
-
 </div>
 </body>
 </html>

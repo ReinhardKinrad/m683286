@@ -59,4 +59,12 @@ public class LotDaoImpl extends AbstractDao<Lot> implements LotDao {
             StringUtil.putPercentCharAtTheBeginningAndEndOfTheLine(searchLine))
         .list();
   }
+
+  @Override
+  public void update(int id, Lot lotForm) {
+    var lot = getSessionFactory().get(Lot.class, id);
+    lot.setStopDate(lotForm.getStopDate());
+    lot.getItem().setTitle(lotForm.getItem().getTitle());
+    lot.getItem().setDescription(lotForm.getItem().getDescription());
+  }
 }

@@ -31,33 +31,37 @@ public class UserValidator implements Validator {
   }
 
   private void validateUsername(User user, Errors errors) {
-    if (user.getUsername().length() < 5 || user.getUsername().length() > 30) {
+    if (user.getUsername().length() < ValidatorConst.MIN_LENGTH_USERNAME
+        || user.getUsername().length() > ValidatorConst.MAX_LENGTH_USERNAME) {
       errors.rejectValue("username", "username.length.error");
     }
   }
 
   private void validatePassword(User user, Errors errors) {
-    if (user.getPassword().length() < 8 || user.getPassword().length() > 100) {
+    if (user.getPassword().length() < ValidatorConst.MIN_LENGTH_PASSWORD
+        || user.getPassword().length() > ValidatorConst.MAX_LENGTH_PASSWORD) {
       errors.rejectValue("password", "password.length.error");
     }
   }
 
   private void validateEmail(User user, Errors errors) {
     if (!(EmailValidator.getInstance().isValid(user.getEmail())
-        || (user.getEmail().length() < 8
-        || user.getEmail().length() > 50))) {
+        || (user.getEmail().length() < ValidatorConst.MIN_LENGTH_EMAIL
+        || user.getEmail().length() > ValidatorConst.MAX_LENGTH_EMAIL))) {
       errors.rejectValue("email", "email.not.valid");
     }
   }
 
   private void validateFirstname(User user, Errors errors) {
-    if (user.getFirstname().length() < 5 || user.getFirstname().length() > 25) {
+    if (user.getFirstname().length() < ValidatorConst.MIN_LENGTH_FIRSTNAME
+        || user.getFirstname().length() > ValidatorConst.MAX_LENGTH_FIRSTNAME) {
       errors.rejectValue("firstname", "firstname.length.error");
     }
   }
 
   private void validateLastname(User user, Errors errors) {
-    if (user.getLastname().length() < 5 || user.getLastname().length() > 35) {
+    if (user.getLastname().length() < ValidatorConst.MIN_LENGTH_LASTNAME
+        || user.getLastname().length() > ValidatorConst.MAX_LENGTH_LASTNAME) {
       errors.rejectValue("lastname", "lastname.length.error");
     }
   }

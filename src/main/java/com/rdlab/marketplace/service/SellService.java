@@ -1,6 +1,5 @@
 package com.rdlab.marketplace.service;
 
-import com.rdlab.marketplace.domain.Item;
 import com.rdlab.marketplace.domain.Lot;
 import org.springframework.stereotype.Service;
 
@@ -18,11 +17,10 @@ public class SellService {
     this.itemService = itemService;
   }
 
-  public void create(String user, Item itemForm, Lot lotForm) {
+  public void create(String user, Lot lotForm) {
     var userFromUserServiceByUsername = userService.findByUsername(user);
-    itemService.saveItem(itemForm);
+    itemService.saveItem(lotForm.getItem());
     lotForm.setUser(userFromUserServiceByUsername);
-    lotForm.setItem(itemForm);
     lotForm.setIsActive(true);
     lotService.saveNewLot(lotForm);
   }

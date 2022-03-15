@@ -17,14 +17,31 @@ public class LotValidator implements Validator {
 
   @Override
   public void validate(Object target, Errors errors) {
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "stopDate", "lot.stopDate.empty");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startPrice", "lot.startPrice.empty");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "bidInc", "lot.bidInc.empty");
+    checkEmptyOrWhitespace(errors);
+    if (errors.hasErrors()) {
+      return;
+    }
     var lot = (Lot) target;
     validateStopDate(lot, errors);
     validateStartPrice(lot, errors);
     validateBidInc(lot, errors);
   }
+
+  public void validateEditLotForm(Object target, Errors errors) {
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "stopDate", "lot.stopDate.empty");
+    if (errors.hasErrors()) {
+      return;
+    }
+    var lot = (Lot) target;
+    validateStopDate(lot, errors);
+  }
+
+  private void checkEmptyOrWhitespace(Errors errors) {
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "stopDate", "lot.stopDate.empty");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "startPrice", "lot.startPrice.empty");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "bidInc", "lot.bidInc.empty");
+  }
+
 
   private void validateStopDate(Lot lot, Errors errors) {
     if (lot.getStopDate().isBefore(LocalDate.now())) {

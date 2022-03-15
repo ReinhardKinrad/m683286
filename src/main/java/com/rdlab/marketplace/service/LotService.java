@@ -33,7 +33,7 @@ public class LotService {
   }
 
   @Transactional
-  public List<Lot> searchLot(String search) {
+  public List<Lot> getLotThatContainsParameterInTheTitleOfItem(String search) {
     return lotDAO.findLotThatContainsParameterInTheTitleOfItem(search);
 
   }
@@ -57,6 +57,11 @@ public class LotService {
     lot.setBid(user);
     lot.setBidInc(price);
     return true;
+  }
+
+  @Transactional
+  public void updateLot(int id, Lot lot) {
+    lotDAO.update(id, lot);
   }
 
   @Transactional
