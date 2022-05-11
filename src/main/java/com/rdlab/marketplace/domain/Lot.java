@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,7 +47,7 @@ public class Lot {
   @JoinColumn(name = "user_id", nullable = false)
   private User user;
 
-  @ManyToOne
+  @ManyToOne()
   @JoinColumn(name = "bid_id")
   private User bid;
 

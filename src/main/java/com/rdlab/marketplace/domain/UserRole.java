@@ -35,10 +35,6 @@ public class UserRole implements GrantedAuthority {
   @Exclude
   private Set<User> users;
 
-  public UserRole(Integer id) {
-    this.id = id;
-  }
-
   public UserRole(Integer id, String roleTitle) {
     this.id = id;
     this.roleTitle = roleTitle;

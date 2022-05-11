@@ -17,17 +17,21 @@ public class UserValidator implements Validator {
 
   @Override
   public void validate(Object target, Errors errors) {
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "username.empty");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.empty");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email.empty");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname", "firstname.empty");
-    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastname", "lastname.empty");
+    checkEmptyOrWhitespace(errors);
     var user = (User) target;
     validateUsername(user, errors);
     validatePassword(user, errors);
     validateEmail(user, errors);
     validateFirstname(user, errors);
     validateLastname(user, errors);
+  }
+
+  private void checkEmptyOrWhitespace(Errors errors) {
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "username.empty");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.empty");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email.empty");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstname", "firstname.empty");
+    ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastname", "lastname.empty");
   }
 
   private void validateUsername(User user, Errors errors) {
