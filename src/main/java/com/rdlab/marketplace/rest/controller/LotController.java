@@ -23,6 +23,7 @@ public class LotController {
   public @ResponseBody
   ResponseEntity<List<Lot>> getAllLots() {
     List<Lot> lots = lotService.getAllLotsFromDAO();
-    return new ResponseEntity<>(lots, HttpStatus.OK);
+    return lots == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+        : new ResponseEntity<>(lots, HttpStatus.OK);
   }
 }
