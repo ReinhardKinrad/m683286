@@ -4,7 +4,6 @@ import com.rdlab.marketplace.dao.LotDao;
 import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.domain.User;
 import java.util.List;
-import java.util.stream.Collectors;
 import javax.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
@@ -40,9 +39,7 @@ public class LotService {
 
   @Transactional
   public List<Lot> getAllLotsFromDAO() {
-    return lotDAO.findAll().stream()
-        .filter(Lot::getIsActive)
-        .collect(Collectors.toList());
+    return lotDAO.findAll();
   }
 
   @Transactional

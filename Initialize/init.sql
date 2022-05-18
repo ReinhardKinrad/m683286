@@ -148,3 +148,9 @@ TABLESPACE pg_default;
 
 ALTER TABLE IF EXISTS public.users_user_roles
     OWNER to postgres;
+	
+-- ADD USER_ROLES DATA
+
+INSERT INTO postgres.public.user_roles(
+	role_id, role_title)
+	VALUES (1, ROLE_GUEST), (2, ROLE_USER);

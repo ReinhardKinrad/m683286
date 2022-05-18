@@ -3,7 +3,6 @@ package com.rdlab.marketplace.dao;
 import com.rdlab.marketplace.domain.Lot;
 import com.rdlab.marketplace.util.StringUtil;
 import java.util.List;
-import javax.management.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -18,7 +17,7 @@ public class LotDaoImpl extends AbstractDao<Lot> implements LotDao {
   public List<Lot> findAll() {
     return (List<Lot>) getSessionFactory()
         .createQuery(
-            "FROM Lot WHERE isActive = true ORDER BY id"
+            "FROM Lot WHERE current_date < stopDate ORDER BY id"
         )
         .list();
   }
