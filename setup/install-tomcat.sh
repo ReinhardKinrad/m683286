@@ -35,19 +35,9 @@ case $n in
     2) echo "доступ к серверу будет затруднен." ;;
 esac
 
-#check and install java
-JAVA='java'
-for file in /etc/*
-do
-if grep -q "$JAVA" <<< "$file"
-then
-echo "Java already installed"
-break
-else
+#install java
 apt-get install default-jdk
 echo "Java has installed"
-fi
-done
 
 echo "Создаем пользователя tomcat..."
 useradd tomcat -U -s /bin/false -d /opt/tomcat -m
@@ -62,41 +52,13 @@ echo "Запускаем сервер..."
 
 echo "Настраиваем сервер TomCat..."
 /opt/tomcat/bin/shutdown.sh
-chown -R tomcat:tomcat /opt/tomcat
-
-touch /etc/systemd/system/tomcat.service
-echo "[Unit]
-Description=Apache Tomcat Server
-After=network.target
-
-[Service]
-Type=forking
-User=tomcat
-Group=tomcat
-Environment="JAVA_HOME=/usr/lib/jvm/default-java"
-Environment="JAVA_OPTS=-Djava.security.egd=file:///dev/urandom -Djava.awt.headless=true"
-Environment="CATALINA_BASE=/opt/tomcat"
-Environment="CATALINA_HOME=/opt/tomcat"
-Environment="CATALINA_PID=/opt/tomcat/temp/tomcat.pid"
-Environment="CATALINA_OPTS=-Xms64M -Xmx128M -server -XX:+UseParallelGC"
-ExecStart=/opt/tomcat/bin/startup.sh
-ExecStop=/opt/tomcat/bin/shutdown.sh
-Restart=on-failure
-RestartSec=10
-
-[Install]
-WantedBy=multi-user.target" > /etc/systemd/system/tomcat.service
-
-systemctl daemon-reload
-systemctl start tomcat
-systemctl status tomcat
 
 touch temp6843.txt
 echo "Введите имя пользователя, по которому будет разрешено деплоить на tomcat"
-read -s n
+read n
 username=$n
 echo "Введите пароль к пользователю"
-read -s n
+read n
 password=$n
 echo "<role rolename=\"manager-gui\"/>
     <role rolename=\"manager-script\"/>
