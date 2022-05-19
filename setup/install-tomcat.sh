@@ -132,7 +132,7 @@ password=$n
     <role rolename=\"manager-status\"/>
     <user username=\"$username\" password=\"$password\" roles=\"manager-gui,manager-script,manager-jmx,manager-status\"/>" > temp6843.txt
 
-sed -i '21r temp6843.txt' /opt/tomcat/config/tomcat-users.xml
+sed -i '21r temp6843.txt' /opt/tomcat/conf/tomcat-users.xml
 
 rm temp6843.txt
 /opt/tomcat/bin/shutdown.sh
