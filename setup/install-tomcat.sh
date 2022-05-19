@@ -115,15 +115,6 @@ case $n in
 " > /opt/tomcat/webapps/manager/META-INF/context.xml ;;
 esac
 
-#deploy to ROOT
-echo "<Context path=\"\" docBase=\"marketplace\">
-                    <!-- Default set of monitored resources -->
-                    <WatchedResource>WEB-INF/web.xml</WatchedResource>
-                </Context>" > temp6843.txt
-
-sed -i '165r temp6843.txt' /opt/tomcat/conf/server.xml
-rm temp6843.txt
-
 echo "Запускаем сервер..."
 /opt/tomcat/bin/startup.sh
 

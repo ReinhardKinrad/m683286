@@ -268,7 +268,7 @@
         <configuration>
           <url>http://172.20.214.114:8080/manager/text</url>
           <server>TomcatServer</server>
-          <path>/marketplace</path>
+          <path>/</path>
         </configuration>
       </plugin>
     </plugins>
