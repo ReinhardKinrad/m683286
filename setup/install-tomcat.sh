@@ -54,7 +54,6 @@ tar zxvf apache-tomcat-*.tar.gz -C /opt/tomcat --strip-components 1
 echo "Сервер установлен."
 
 echo "Настраиваем сервер TomCat..."
-/opt/tomcat/bin/shutdown.sh
 
 echo "Добавление возможности удаленного подключения.
 1-разрешить подключение всем адресам
@@ -122,7 +121,7 @@ echo "<Context path=\"\" docBase=\"marketplace\">
                     <WatchedResource>WEB-INF/web.xml</WatchedResource>
                 </Context>" > temp6843.txt
 
-sed -i '168r temp6843.txt' /opt/tomcat/config/server.xml
+sed -i '165r temp6843.txt' /opt/tomcat/conf/server.xml
 rm temp6843.txt
 
 echo "Запускаем сервер..."
@@ -141,7 +140,7 @@ password=$n
     <role rolename=\"manager-status\"/>
     <user username=\"$username\" password=\"$password\" roles=\"manager-gui,manager-script,manager-jmx,manager-status\"/>" > temp6843.txt
 
-sed -i '21r temp6843.txt' /opt/tomcat/config/tomcat-users.xml
+sed -i '21r temp6843.txt' /opt/tomcat/conf/tomcat-users.xml
 
 rm temp6843.txt ;;
 esac
