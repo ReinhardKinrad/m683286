@@ -115,6 +115,10 @@ case $n in
 " > /opt/tomcat/webapps/manager/META-INF/context.xml ;;
 esac
 
+echo "<Context path=\"\" docBase=\"marketplace\" debug=\"0\" reloadable=\"true\"></Context>" > temp6843.txt
+sed -i '165r temp6843.txt' /opt/tomcat/conf/server.xml
+rm temp6843.txt
+
 echo "Запускаем сервер..."
 /opt/tomcat/bin/startup.sh
 
