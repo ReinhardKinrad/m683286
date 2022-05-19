@@ -15,12 +15,5 @@ apt update
 iptables -A INPUT -p tcp --dport 5432 -j ACCEPT
 netfilter-persistent save
 
-psql 
 
-\password
-
-postgres
-postgres
-
-\q
 

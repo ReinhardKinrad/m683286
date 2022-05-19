@@ -2,66 +2,68 @@
 #check for root
 IAM=$(whoami)
 if [ ${IAM} != "root" ]; then
-    echo "You must be root to use this script"
-    exit 1
+  echo "You must be root to use this script"
+  exit 1
 fi
 
 echo "1. Установить tomcat
-2. Добавить пользователя"
+2. Добавить пользователя
+3. Сделать приложение корневым"
 
-read n
-case $n in 
-    1) #prepare to install
-apt-get update
-
-echo "Задайте имя сервера(eng)"
-read n
-hostnamectl set-hostname $n
-echo "Имя задано"
-
-echo "Установите часовой пояс(пример: Europe/Moscow)."
-read n
-timedatectl set-timezone $n
-echo "Часовой пояс установлен"
-
-#automatic synx time
-apt-get install chrony
-systemctl enable chrony
-
-#open port 8080
-echo "Открыть порт 8080?
-1 - да
-2 - нет"
 read n
 case $n in
-    1) iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
-       apt-get install iptables-persistent 
-       netfilter-persistent save ;;
-    2) echo "доступ к серверу будет затруднен." ;;
-esac
+1) #prepare to install
+  apt-get update
 
-#install java
-apt-get install default-jdk
-echo "Java has installed"
+  echo "Задайте имя сервера(eng)"
+  read n
+  hostnamectl set-hostname $n
+  echo "Имя задано"
 
-echo "Создаем пользователя tomcat..."
-useradd tomcat -U -s /bin/false -d /opt/tomcat -m
+  echo "Установите часовой пояс(пример: Europe/Moscow)."
+  read n
+  timedatectl set-timezone $n
+  echo "Часовой пояс установлен"
 
+  #automatic synx time
+  apt-get install chrony
+  systemctl enable chrony
 
-echo "Приступаем к установке сервера..."
-wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.63/bin/apache-tomcat-9.0.63.tar.gz
-tar zxvf apache-tomcat-*.tar.gz -C /opt/tomcat --strip-components 1
-echo "Сервер установлен."
+  #open port 8080
+  echo "Открыть порт 8080?
+1 - да
+2 - нет"
+  read n
+  case $n in
+  1)
+    iptables -A INPUT -p tcp --dport 8080 -j ACCEPT
+    apt-get install iptables-persistent
+    netfilter-persistent save
+    ;;
+  2) echo "доступ к серверу будет затруднен." ;;
+  esac
 
-echo "Настраиваем сервер TomCat..."
+  #install java
+  apt-get install default-jdk
+  echo "Java has installed"
 
-echo "Добавление возможности удаленного подключения.
+  echo "Создаем пользователя tomcat..."
+  useradd tomcat -U -s /bin/false -d /opt/tomcat -m
+
+  echo "Приступаем к установке сервера..."
+  wget https://dlcdn.apache.org/tomcat/tomcat-9/v9.0.63/bin/apache-tomcat-9.0.63.tar.gz
+  tar zxvf apache-tomcat-*.tar.gz -C /opt/tomcat --strip-components 1
+  echo "Сервер установлен."
+
+  echo "Настраиваем сервер TomCat..."
+
+  echo "Добавление возможности удаленного подключения.
 1-разрешить подключение всем адресам
 2-разрешить подключение определенному адресу
 "
-read n
-case $n in
-    1) echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+  read n
+  case $n in
+  1) echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -85,8 +87,9 @@ case $n in
          allow=\".*\" />
   <Manager sessionAttributeValueClassNameFilter=\"java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap\"/>
 </Context>
-" > /opt/tomcat/webapps/manager/META-INF/context.xml ;;
-    2) echo "Введите IP-адрес удаленного пк"
+" >/opt/tomcat/webapps/manager/META-INF/context.xml ;;
+  2)
+    echo "Введите IP-адрес удаленного пк"
     read n
     echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!--
@@ -112,30 +115,36 @@ case $n in
          allow=\"127\.\d+\.\d+\.\d+|::1|0:0:0:0:0:0:0:1|$n\" />
   <Manager sessionAttributeValueClassNameFilter=\"java\.lang\.(?:Boolean|Integer|Long|Number|String)|org\.apache\.catalina\.filters\.CsrfPreventionFilter\$LruCache(?:\$1)?|java\.util\.(?:Linked)?HashMap\"/>
 </Context>
-" > /opt/tomcat/webapps/manager/META-INF/context.xml ;;
-esac
+" >/opt/tomcat/webapps/manager/META-INF/context.xml
+    ;;
+  esac
 
-echo "<Context path=\"\" docBase=\"marketplace\" debug=\"0\" reloadable=\"true\"></Context>" > temp6843.txt
-sed -i '165r temp6843.txt' /opt/tomcat/conf/server.xml
-rm temp6843.txt
+  echo "Запускаем сервер..."
+  /opt/tomcat/bin/startup.sh
 
-echo "Запускаем сервер..."
-/opt/tomcat/bin/startup.sh
-
-echo "Настройка завершена. Сервер готов к работе." ;;
-    2) echo "Введите имя пользователя, по которому будет разрешено деплоить на tomcat"
-read n
-username=$n
-echo "Введите пароль к пользователю"
-read n
-password=$n
-     echo "<role rolename=\"manager-gui\"/>
+  echo "Настройка завершена. Сервер готов к работе."
+  ;;
+2)
+  echo "Введите имя пользователя, по которому будет разрешено деплоить на tomcat"
+  read n
+  username=$n
+  echo "Введите пароль к пользователю"
+  read n
+  password=$n
+  echo "<role rolename=\"manager-gui\"/>
     <role rolename=\"manager-script\"/>
     <role rolename=\"manager-jmx\"/>
     <role rolename=\"manager-status\"/>
-    <user username=\"$username\" password=\"$password\" roles=\"manager-gui,manager-script,manager-jmx,manager-status\"/>" > temp6843.txt
+    <user username=\"$username\" password=\"$password\" roles=\"manager-gui,manager-script,manager-jmx,manager-status\"/>" >temp6843.txt
 
-sed -i '21r temp6843.txt' /opt/tomcat/conf/tomcat-users.xml
+  sed -i '21r temp6843.txt' /opt/tomcat/conf/tomcat-users.xml
 
-rm temp6843.txt ;;
+  rm temp6843.txt
+  ;;
+
+3)
+  echo "<Context path=\"\" docBase=\"marketplace\" debug=\"0\" reloadable=\"true\"></Context>" >temp6843.txt
+  sed -i '165r temp6843.txt' /opt/tomcat/conf/server.xml
+  rm temp6843.txt
+  ;;
 esac
