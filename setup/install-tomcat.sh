@@ -62,7 +62,7 @@ echo "Добавление возможности удаленного подк�
 "
 read n
 case $n in
-    1) echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    1) echo "<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -89,7 +89,7 @@ case $n in
 " > /opt/tomcat/webapps/manager/META-INF/context.xml ;;
     2) echo "Введите IP-адрес удаленного пк"
     read n
-    echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
+    echo "<?xml version="1.0" encoding="UTF-8"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -116,6 +116,15 @@ case $n in
 " > /opt/tomcat/webapps/manager/META-INF/context.xml ;;
 esac
 
+#deploy to ROOT
+echo "<Context path=\"\" docBase=\"marketplace\">
+                    <!-- Default set of monitored resources -->
+                    <WatchedResource>WEB-INF/web.xml</WatchedResource>
+                </Context>" > temp6843.txt
+
+sed -i '168r temp6843.txt' /opt/tomcat/config/server.xml
+rm temp6843.txt
+
 echo "Запускаем сервер..."
 /opt/tomcat/bin/startup.sh
 
@@ -132,10 +141,7 @@ password=$n
     <role rolename=\"manager-status\"/>
     <user username=\"$username\" password=\"$password\" roles=\"manager-gui,manager-script,manager-jmx,manager-status\"/>" > temp6843.txt
 
-sed -i '21r temp6843.txt' /opt/tomcat/conf/tomcat-users.xml
+sed -i '21r temp6843.txt' /opt/tomcat/config/tomcat-users.xml
 
-rm temp6843.txt
-/opt/tomcat/bin/shutdown.sh
-/opt/tomcat/bin/startup.sh ;;
-
+rm temp6843.txt ;;
 esac
