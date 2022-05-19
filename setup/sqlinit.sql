@@ -83,3 +83,7 @@ create table if not exists users_user_roles
 
 alter table users_user_roles
     owner to postgres;
+	
+INSERT INTO postgres.public.user_roles(
+	role_id, role_title)
+	VALUES (1, 'ROLE_GUEST'), (2, 'ROLE_USER');
