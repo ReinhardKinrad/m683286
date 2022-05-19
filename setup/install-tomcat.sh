@@ -62,7 +62,7 @@ echo "Добавление возможности удаленного подк�
 "
 read n
 case $n in
-    1) echo "<?xml version="1.0" encoding="UTF-8"?>
+    1) echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
@@ -89,7 +89,7 @@ case $n in
 " > /opt/tomcat/webapps/manager/META-INF/context.xml ;;
     2) echo "Введите IP-адрес удаленного пк"
     read n
-    echo "<?xml version="1.0" encoding="UTF-8"?>
+    echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>
 <!--
   Licensed to the Apache Software Foundation (ASF) under one or more
   contributor license agreements.  See the NOTICE file distributed with
