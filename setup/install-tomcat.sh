@@ -134,5 +134,8 @@ password=$n
 
 sed -i '21r temp6843.txt' /opt/tomcat/config/tomcat-users.xml
 
-rm temp6843.txt ;;
+rm temp6843.txt
+/opt/tomcat/bin/shutdown.sh
+/opt/tomcat/bin/startup.sh ;;
+
 esac
