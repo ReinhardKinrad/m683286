@@ -1,4 +1,9 @@
-﻿create table if not exists users
+﻿create sequence "LOTS_lot_id_seq"
+    as integer;
+
+alter sequence "LOTS_lot_id_seq" owner to postgres;
+
+create table if not exists users
 (
     user_id   serial
         constraint users_pkey
@@ -47,6 +52,8 @@ create table if not exists lots
 
 alter table lots
     owner to postgres;
+
+alter sequence "LOTS_lot_id_seq" owned by lots.lot_id;
 
 create index if not exists fki_o
     on lots (user_id);
